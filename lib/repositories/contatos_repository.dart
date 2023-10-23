@@ -5,14 +5,21 @@ class ContatosRepository {
   final _customDio = Back4AppCustomDio();
   ContatosRepository() {}
 
-  Future<ContatosModel> obterContatos([int? id]) async {
+  Future<ContatosModel> obterContatos() async {
     var url = "/contatos";
-    if (id != null) {
-      url = "$url?where={\"objectId\":\"$id\"}";
-    }
+
     var result = await _customDio.dio.get(url);
 
     return ContatosModel.fromJson(result.data);
+  }
+
+  Future<Contato> obterContatoEspecifico(String id) async {
+    var url = "/contatos?where={\"objectId\":\"$id\"}";
+
+    var result = await _customDio.dio.get(url);
+    ContatosModel contatoLista = ContatosModel.fromJson(result.data);
+    Contato contato = contatoLista.contatosLista[0];
+    return contato;
   }
 
   Future<void> criarContato(Contato contatoModel) async {

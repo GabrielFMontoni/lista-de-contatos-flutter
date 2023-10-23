@@ -31,7 +31,7 @@ class Contato {
 
   Contato(this.objectId, this.nome, this.foto, this.telefone, this.createdAt,
       this.updatedAt);
-
+  Contato.vazio();
   Contato.fromJson(Map<String, dynamic> json) {
     objectId = json['objectId'];
     nome = json['nome'];
